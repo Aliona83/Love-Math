@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", function (){
+document.addEventListener("DOMContentLoaded", function () {
     let buttons = document.getElementsByTagName("button");
      for (let button of buttons) {
         button.addEventListener("click", function() {
-            if(this.getAttribute("data-type") ==="submit") {
+            if (this.getAttribute("data-type") === "submit") {
                 checkAnswer();
              } else {
                     let gameType = this.getAttribute("data-type");
@@ -14,25 +14,27 @@ document.addEventListener("DOMContentLoaded", function (){
     runGame("addition");
 
 })
-
+// Creates two random numbers be between 1-25
 function runGame(gameType) {
-    let num1 = Math.floor(Math.random()*25) +1;
-    let num2 = Math.floor(Math.random()*25) +1;
+    let num1 = Math.floor(Math.random() * 25) +1;
+    let num2 = Math.floor(Math.random() * 25) +1;
 
-    if (gameType ==="addition") {
+    if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
+    } else if (gameType === "multiply") { 
+    displayMultiplyQuestion(num1, num2);
     } else {
-        alert(`Uknown game type: ${gameType}`);
+        alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}.Aborting!`;
     }
-    }
+}
 function checkAnswer(){
 let userAnswer = parseInt(document.getElementById('answer-box').value);
 let calculatedAnswer = calculateCorrectAnswer();
 let isCorrect = userAnswer === calculatedAnswer[0];
 
 if (isCorrect) {
-    alert("Hey you got it right! :D");
+    alert("Hey! You got it right! :D");
 } else {
     alert(`Awww....you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
 }
@@ -50,7 +52,9 @@ function calculateCorrectAnswer(){
 
     if (operator ==='+') {
         return[operand1 + operand2,"addition"];
-    } else {
+    } else if(operator ===  "x")  {
+        return [operand1 * operand2, "multiply"];
+    } else {        
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}.Aborting`;
     }
@@ -72,6 +76,8 @@ function displayAdditionQuestion(operand1, operand2){
 function displaySubtractQuestion(){
 
 }
-function displayMultiplyQuestion(){
-
+function displayMultiplyQuestion(operand1,operand2){
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "x";
 }
